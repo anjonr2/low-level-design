@@ -9,7 +9,7 @@ public abstract class AbstractDocument {
     public final void loadDocument(String filePath){
         //common steps to load a document
         System.out.println("Loading document from: " + filePath);
-        openFile(filePath)
+        openFile(filePath);
         readContent();
         validate();
         closeFile();
