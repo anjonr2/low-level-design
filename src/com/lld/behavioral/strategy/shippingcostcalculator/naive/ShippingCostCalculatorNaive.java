@@ -1,0 +1,31 @@
+package com.lld.behavioral.strategy.shippingcostcalculator.naive;
+
+public class ShippingCostCalculatorNaive {
+    public double calculateShippingCost(Order order, String strategyType){
+        double cost = 0.0;
+        if("FLAT_RATE".equalsIgnoreCase(strategyType)){
+            System.out.println("Calculating with Flat Rate Strategy");
+            cost = 10.0;
+        } else if ("WEIGHT_BASED".equalsIgnoreCase(strategyType)) {
+            System.out.println("Calculating with Weight-Based strategy");
+            cost = order.getTotalWeight() * 2.5;
+        } else if ("DISTANCE_BASED".equalsIgnoreCase(strategyType)) {
+            System.out.println("Calculating with Distance-Based strategy.");
+            if("ZoneA".equals(order.getDestinationZone())){
+                cost = 5.0;
+            } else if ("ZoneB".equals(order.getDestinationZone())) {
+                cost = 12.0;
+            }else {
+                cost = 20.0; //fallback
+            }
+        }else if("THIRD_PARTY_API".equalsIgnoreCase(strategyType)){
+            System.out.println("Calculating with Third-Party API strategy.");
+            cost = 7.5 + order.getOrderValue() * 0.02;
+        }else {
+            throw new IllegalArgumentException("Unknown shipping strategy: "+ strategyType);
+        }
+
+        System.out.println("Calculated shipping cost: $"+ cost);
+        return cost;
+    }
+}
